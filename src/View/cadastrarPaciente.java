@@ -5,8 +5,13 @@
  */
 package View;
 import Model.Paciente;
+import Bd.Conexao;
 import Controller.PacienteController;
+import Model.Tabela;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 /**
  *
  * @author rafael
@@ -15,6 +20,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
 
         Paciente paciente = new Paciente();
         PacienteController pacienteController = new PacienteController();
+        Conexao conexao = new Conexao();
         
     /**
      * Creates new form cadastrarPaciente
@@ -22,6 +28,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
     public cadastrarPaciente() {
         
         initComponents();
+        preencherTabela("SELECT NOME, CPF, TELEFONE, EMAIL FROM PACIENTES");
     }
 
     /**
@@ -49,7 +56,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
         bExcluir = new javax.swing.JButton();
         bBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablePacientes = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jId = new javax.swing.JTextField();
@@ -144,7 +151,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -155,7 +162,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTablePacientes);
 
         jLabel6.setText("Pacientes");
 
@@ -393,6 +400,37 @@ public class cadastrarPaciente extends javax.swing.JFrame {
         jTelefone.setText("");
     }
     
+    public void preencherTabela(String sql){
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Nome", "CPF", "Telefone", "Email"};
+        conexao.conecta();
+        conexao.executaSql(sql);
+        try{
+            conexao.rs.first();
+            do{
+                dados.add(new Object[]{conexao.rs.getString("nome"), conexao.rs.getLong("cpf"),
+                                       conexao.rs.getString("telefone"),
+                                       conexao.rs.getString("email")});
+            }while(conexao.rs.next());
+        }catch(SQLException ex){
+            //JOptionPane.showMessageDialog(rootPane,"erro ao preencher arraLyst: "+ ex);
+        }
+        Tabela modelo = new Tabela(dados, colunas);
+        jTablePacientes.setModel(modelo);
+        jTablePacientes.getColumnModel().getColumn(0).setPreferredWidth(150);
+        jTablePacientes.getColumnModel().getColumn(0).setResizable(false);
+        jTablePacientes.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTablePacientes.getColumnModel().getColumn(1).setResizable(false);
+        jTablePacientes.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTablePacientes.getColumnModel().getColumn(2).setResizable(false);
+        jTablePacientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTablePacientes.getColumnModel().getColumn(3).setResizable(false);
+        jTablePacientes.getTableHeader().setReorderingAllowed(false);
+        jTablePacientes.setAutoResizeMode(jTablePacientes.AUTO_RESIZE_OFF);
+        jTablePacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conexao.desconecta();
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBuscar;
@@ -413,7 +451,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jNome;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePacientes;
     private javax.swing.JTextField jTelefone;
     // End of variables declaration//GEN-END:variables
 }
