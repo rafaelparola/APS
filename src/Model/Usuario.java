@@ -4,9 +4,11 @@ package Model;
  *
  * @author rafael
  */
-public abstract class Usuario extends Pessoa {
+public class Usuario extends Pessoa {
     private String login;
     private String senha;
+    private char tipoUsuario;
+    private long idUsuario;
 
     /**
      * @return the login
@@ -34,6 +36,34 @@ public abstract class Usuario extends Pessoa {
      */
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    /**
+     * @return the tipoUsuario
+     */
+    public char getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    /**
+     * @param tipoUsuario the tipoUsuario to set
+     */
+    public void setTipoUsuario(char tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    /**
+     * @return the idUsuario
+     */
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
     
