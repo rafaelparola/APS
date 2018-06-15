@@ -34,4 +34,10 @@ public class PacienteController {
         }else{JOptionPane.showMessageDialog(null, "Campos obrigatórios não preenchidos.");}
     }
     
+    public void excluiPaciente(Paciente paciente){
+            pacienteBd.excluiPaciente(paciente);
+            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
+            
+    }
+    
 }

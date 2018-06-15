@@ -21,7 +21,7 @@ public class PacienteBd {
         conexao.conecta();
         try {
             PreparedStatement pst = conexao.con.prepareStatement("INSERT INTO "
-                    + "PACIENTES(nome, cpf, telefone, email) "
+                    + "PACIENTES(nome, cpf, telefone_fixo, email) "
                     + "VALUES(?, ?, ?, ?)");
             pst.setString(1, paciente.getNome());
             pst.setLong(2, paciente.getCpf());
@@ -64,7 +64,7 @@ public class PacienteBd {
         conexao.conecta();
         try {
             PreparedStatement pst = conexao.con.prepareStatement("UPDATE "
-                    + "DENTISTAS SET nome = ?, cpf = ?, cro = ?, telefone = ?, email = ?" + 
+                    + "PACIENTES SET NOME = ?, CPF = ?, TELEFONE_FIXO = ?, EMAIL = ?" + 
                     " WHERE id = ?");
             pst.setString(1, paciente.getNome());
             pst.setLong(2, paciente.getCpf());
@@ -75,6 +75,20 @@ public class PacienteBd {
             JOptionPane.showMessageDialog(null, "Dados editados");
                     } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao editar dados :" + ex);
+        }
+        conexao.desconecta();
+    }
+    
+    public void excluiPaciente(Paciente paciente){
+        conexao.conecta();
+        try {
+            PreparedStatement pst = conexao.con.prepareStatement("DELETE FROM "
+                    + "PACIENTES WHERE CPF = ?");
+            pst.setLong(1, paciente.getCpf());
+            pst.execute();
+            //JOptionPane.showMessageDialog(null, "Dados excluidos");
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir dados :" + ex);
         }
         conexao.desconecta();
     }

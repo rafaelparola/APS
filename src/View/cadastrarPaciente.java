@@ -28,7 +28,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
     public cadastrarPaciente() {
         
         initComponents();
-        preencherTabela("SELECT NOME, CPF, TELEFONE, EMAIL FROM PACIENTES");
+        preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
     }
 
     /**
@@ -143,6 +143,11 @@ public class cadastrarPaciente extends javax.swing.JFrame {
 
         bExcluir.setText("Excluir");
         bExcluir.setEnabled(false);
+        bExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bExcluirMouseClicked(evt);
+            }
+        });
         bExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bExcluirActionPerformed(evt);
@@ -167,6 +172,11 @@ public class cadastrarPaciente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablePacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablePacientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablePacientes);
 
         jLabel6.setText("Pacientes");
@@ -351,7 +361,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
         jNome.setEnabled(false);
         jTelefone.setEnabled(false);
         bCadastrar.setEnabled(true);
-        //preencherTabela("SELECT NOME, CPF, CRO, TELEFONE_FIXO, HORA_INICIO, HORA_FIM FROM DENTISTAS ORDER BY NOME");
+        preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
         
         
         
@@ -382,9 +392,52 @@ public class cadastrarPaciente extends javax.swing.JFrame {
         pacienteController.editaPaciente(paciente);
         this.limpaCampos();
         
-        preencherTabela("SELECT NOME, CPF, CRO, TELEFONE_FIXO, HORA_INICIO, HORA_FIM FROM DENTISTAS ORDER BY NOME");
+        preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
         
     }//GEN-LAST:event_bEditarMouseClicked
+
+    private void jTablePacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePacientesMouseClicked
+        String cpf = "" + jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 1);
+        conexao.conecta();
+        conexao.executaSql("SELECT ID, NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES WHERE CPF = '"+Long.parseLong(cpf)+"'");
+        try {
+            conexao.rs.first();
+            jId.setText(""+conexao.rs.getInt("id"));
+            jNome.setText(conexao.rs.getString("nome"));
+            jCpf.setText(String.valueOf(conexao.rs.getLong("cpf")));
+            jTelefone.setText(conexao.rs.getString("telefone_fixo"));
+            jEmail.setText(conexao.rs.getString("email"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Errocriado no mouse clicked: "+ex);
+        }
+        conexao.desconecta();
+        bEditar.setEnabled(true);
+        bSalvar.setEnabled(false);
+        bExcluir.setEnabled(true);
+        bEditar.setEnabled(true);
+        bCadastrar.setEnabled(false);
+        jNome.setEnabled(true);
+        jTelefone.setEnabled(true);
+    }//GEN-LAST:event_jTablePacientesMouseClicked
+
+    private void bExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bExcluirMouseClicked
+        paciente.setCpf(Long.parseLong(jCpf.getText()));
+        paciente.setNome(jNome.getText());
+        paciente.setTelefoneFixo(jTelefone.getText());
+        
+        pacienteController.excluiPaciente(paciente);
+        
+        preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
+        
+        bCadastrar.setEnabled(true);
+        bSalvar.setEnabled(false);
+        bEditar.setEnabled(false);
+        bExcluir.setEnabled(false);
+        bEditar.setEnabled(false);
+        jNome.setEnabled(false);
+        jTelefone.setEnabled(false);
+        this.limpaCampos();
+    }//GEN-LAST:event_bExcluirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -438,7 +491,7 @@ public class cadastrarPaciente extends javax.swing.JFrame {
             conexao.rs.first();
             do{
                 dados.add(new Object[]{conexao.rs.getString("nome"), conexao.rs.getLong("cpf"),
-                                       conexao.rs.getString("telefone"),
+                                       conexao.rs.getString("telefone_fixo"),
                                        conexao.rs.getString("email")});
             }while(conexao.rs.next());
         }catch(SQLException ex){
