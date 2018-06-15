@@ -60,4 +60,23 @@ public class PacienteBd {
        return resultado;
     }
     
+    public void editaPaciente(Paciente paciente){
+        conexao.conecta();
+        try {
+            PreparedStatement pst = conexao.con.prepareStatement("UPDATE "
+                    + "DENTISTAS SET nome = ?, cpf = ?, cro = ?, telefone = ?, email = ?" + 
+                    " WHERE id = ?");
+            pst.setString(1, paciente.getNome());
+            pst.setLong(2, paciente.getCpf());
+            pst.setString(3, paciente.getTelefoneFixo());
+            pst.setString(4, paciente.getEmail());
+            pst.setLong(5, paciente.getId());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Dados editados");
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao editar dados :" + ex);
+        }
+        conexao.desconecta();
+    }
+    
 }

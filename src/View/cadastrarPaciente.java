@@ -130,6 +130,11 @@ public class cadastrarPaciente extends javax.swing.JFrame {
 
         bEditar.setText("Editar");
         bEditar.setEnabled(false);
+        bEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bEditarMouseClicked(evt);
+            }
+        });
         bEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEditarActionPerformed(evt);
@@ -356,6 +361,30 @@ public class cadastrarPaciente extends javax.swing.JFrame {
     private void jIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jIdActionPerformed
+
+    private void bEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bEditarMouseClicked
+        
+            try {
+               if("".equals(jCpf.getText())){
+            paciente.setCpf(0L);
+        }else{paciente.setCpf(Long.parseLong(jCpf.getText()));}
+        } catch (java.lang.NumberFormatException ex) {
+                JOptionPane.showMessageDialog(rootPane, "CPF invalido.");
+                return;
+            }
+        
+        
+        paciente.setId(Long.parseLong(jId.getText()));
+        paciente.setNome(jNome.getText());
+        paciente.setTelefoneFixo(jTelefone.getText());
+        paciente.setEmail(jEmail.getText());
+        
+        pacienteController.editaPaciente(paciente);
+        this.limpaCampos();
+        
+        preencherTabela("SELECT NOME, CPF, CRO, TELEFONE_FIXO, HORA_INICIO, HORA_FIM FROM DENTISTAS ORDER BY NOME");
+        
+    }//GEN-LAST:event_bEditarMouseClicked
 
     /**
      * @param args the command line arguments

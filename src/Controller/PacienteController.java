@@ -24,4 +24,14 @@ public class PacienteController {
            
     }
     
+    public void editaPaciente(Paciente paciente){
+        if(paciente.verificaCamposObrigatorios(paciente)){
+            //JOptionPane.showMessageDialog(null, "campos preenchidos.");
+            if(pacienteBd.verificaCpfExistente(paciente)){
+            pacienteBd.editaPaciente(paciente);
+            JOptionPane.showMessageDialog(null, "Usuário editado com sucesso");
+        }else{JOptionPane.showMessageDialog(null, "Usuário já cadastrado com este CPF.");} 
+        }else{JOptionPane.showMessageDialog(null, "Campos obrigatórios não preenchidos.");}
+    }
+    
 }
