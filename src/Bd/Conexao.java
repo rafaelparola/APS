@@ -17,6 +17,8 @@ public class Conexao {
         public Connection con;
         public Statement stm;
         public ResultSet rs;
+        public Statement stm2;
+        public ResultSet rs2;
         private String driver = "org.mysql.Driver";
         private String caminho = "jdbc:mysql://localhost:3306/DATA_MANAGER";
         private String usuario = "root";
@@ -47,6 +49,14 @@ public class Conexao {
                 rs = stm.executeQuery(sql);
             } catch (SQLException ex) {
                 //JOptionPane.showMessageDialog(null, "query executada com erro : "+ ex);
+            }
+        }
+        public void executaSegundoSql(String sql){
+            try {
+                stm2 = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+                rs2 = stm2.executeQuery(sql);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "query executada com erro : "+ ex);
             }
         }
 }
