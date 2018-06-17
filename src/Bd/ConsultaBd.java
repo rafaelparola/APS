@@ -77,18 +77,53 @@ public class ConsultaBd {
         conexao.conecta();
         try {
             PreparedStatement pst = conexao.con.prepareStatement("INSERT INTO "
-                    + "CONSULTAS(ID, PACIENTE, DENTISTA, DATA_CONSULTA, HORA_INICIO, HORA_FIM) "
-                    + "VALUES(?, ?, ?, ?, ?, ?)");
-            pst.setInt(1, consulta.getId());
-            pst.setLong(2, consulta.getPaciente().getId());
-            pst.setLong(3, consulta.getDentista().getId());
-            pst.setString(4, consulta.getData());
-            pst.setString(5, consulta.getHoraInicio());
-            pst.setString(6, consulta.getHoraFim());
+                    + "CONSULTAS(PACIENTE, DENTISTA, DATA_CONSULTA, HORA_INICIO, HORA_FIM) "
+                    + "VALUES(?, ?, ?, ?, ?)");
+            //pst.setInt(1, consulta.getId());
+            pst.setLong(1, consulta.getPaciente().getId());
+            pst.setLong(2, consulta.getDentista().getId());
+            pst.setString(3, consulta.getData());
+            pst.setString(4, consulta.getHoraInicio());
+            pst.setString(5, consulta.getHoraFim());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Dados inseridos na tabela consulta");
                     } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao inserir dados na tabela consulta ex: "+ ex);
+        }
+        conexao.desconecta();
+    }
+    
+    public void editaConsulta(Consulta consulta){
+        conexao.conecta();
+        try {
+            PreparedStatement pst = conexao.con.prepareStatement("UPDATE "
+                    + "CONSULTAS SET PACIENTE = ?, DENTISTA = ?, DATA_CONSULTA = ?, HORA_INICIO = ?, HORA_FIM = ?" + 
+                    " WHERE id = ?");
+            
+            pst.setLong(1, consulta.getPaciente().getId());
+            pst.setLong(2, consulta.getDentista().getId());
+            pst.setString(3, consulta.getData());
+            pst.setString(4, consulta.getHoraInicio());
+            pst.setString(5, consulta.getHoraFim());
+            pst.setInt(6, consulta.getId());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Dados editados na tabela consulta");
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao editar dados na tabela consulta ex: "+ ex);
+        }
+        conexao.desconecta();
+    }
+    
+    public void excluiConsulta(Consulta consulta){
+        conexao.conecta();
+        try {
+            PreparedStatement pst = conexao.con.prepareStatement("DELETE FROM "
+                    + "CONSULTAS WHERE ID = ?");
+            pst.setLong(1, consulta.getId());
+            pst.execute();
+            //JOptionPane.showMessageDialog(null, "Dados excluidos");
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir dados :" + ex);
         }
         conexao.desconecta();
     }

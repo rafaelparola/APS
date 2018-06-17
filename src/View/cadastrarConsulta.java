@@ -6,11 +6,16 @@
 
 package View;
 
+import Bd.Conexao;
 import Model.Consulta;
 import Model.Paciente;
 import Model.Dentista;
 import Controller.ConsultaController;
+import Model.Tabela;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -21,10 +26,13 @@ public class cadastrarConsulta extends javax.swing.JFrame {
      ConsultaController consultaController = new ConsultaController();
      Dentista dentista = new Dentista();
      Paciente paciente = new Paciente();
+     Conexao conexao = new Conexao();
      
     /** Creates new form cadastrarConsulta */
     public cadastrarConsulta() {
         initComponents();
+        
+        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
     }
 
     /** This method is called from within the constructor to
@@ -51,11 +59,12 @@ public class cadastrarConsulta extends javax.swing.JFrame {
         jHoraInicio = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
         bExcluir = new javax.swing.JButton();
-        bBuscar2 = new javax.swing.JButton();
-        bBuscar3 = new javax.swing.JButton();
+        bEditar = new javax.swing.JButton();
+        bSalvar = new javax.swing.JButton();
         bBuscar4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsultas = new javax.swing.JTable();
+        jIdConsulta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,28 +90,38 @@ public class cadastrarConsulta extends javax.swing.JFrame {
         });
 
         bExcluir.setText("Excluir");
+        bExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bExcluirMouseClicked(evt);
+            }
+        });
         bExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bExcluirActionPerformed(evt);
             }
         });
 
-        bBuscar2.setText("Editar");
-        bBuscar2.addActionListener(new java.awt.event.ActionListener() {
+        bEditar.setText("Editar");
+        bEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bEditarMouseClicked(evt);
+            }
+        });
+        bEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscar2ActionPerformed(evt);
+                bEditarActionPerformed(evt);
             }
         });
 
-        bBuscar3.setText("Salvar");
-        bBuscar3.addMouseListener(new java.awt.event.MouseAdapter() {
+        bSalvar.setText("Salvar");
+        bSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bBuscar3MouseClicked(evt);
+                bSalvarMouseClicked(evt);
             }
         });
-        bBuscar3.addActionListener(new java.awt.event.ActionListener() {
+        bSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscar3ActionPerformed(evt);
+                bSalvarActionPerformed(evt);
             }
         });
 
@@ -124,6 +143,11 @@ public class cadastrarConsulta extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConsultas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,19 +158,19 @@ public class cadastrarConsulta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(bBuscar4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bExcluir)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(bBuscar4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bBuscar3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bBuscar2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bExcluir)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -178,46 +202,53 @@ public class cadastrarConsulta extends javax.swing.JFrame {
                                             .addComponent(jDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(47, 47, 47))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bBuscar))
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bBuscar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jDentista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
+                            .addComponent(jLabel3)
+                            .addComponent(jHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jDentista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jHoraFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addComponent(jHoraFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bBuscar4)
-                    .addComponent(bBuscar3)
-                    .addComponent(bBuscar2)
+                    .addComponent(bSalvar)
+                    .addComponent(bEditar)
                     .addComponent(bExcluir))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -233,19 +264,19 @@ public class cadastrarConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bExcluirActionPerformed
 
-    private void bBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscar2ActionPerformed
+    private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bBuscar2ActionPerformed
+    }//GEN-LAST:event_bEditarActionPerformed
 
-    private void bBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscar3ActionPerformed
+    private void bSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bBuscar3ActionPerformed
+    }//GEN-LAST:event_bSalvarActionPerformed
 
     private void bBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscar4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bBuscar4ActionPerformed
 
-    private void bBuscar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bBuscar3MouseClicked
+    private void bSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarMouseClicked
         paciente.setId(Long.parseLong(jPaciente.getText()));
         dentista.setId(Long.parseLong(jDentista.getText()));
         consulta.setPaciente(paciente);
@@ -260,8 +291,53 @@ public class cadastrarConsulta extends javax.swing.JFrame {
         //jTelefone.setEnabled(false);
         //bCadastrar.setEnabled(true);
         //preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
+        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
         
-    }//GEN-LAST:event_bBuscar3MouseClicked
+    }//GEN-LAST:event_bSalvarMouseClicked
+
+    private void bEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bEditarMouseClicked
+        paciente.setId(Long.parseLong(jPaciente.getText()));
+        dentista.setId(Long.parseLong(jDentista.getText()));
+        consulta.setId(Integer.parseInt(jIdConsulta.getText()));
+        consulta.setPaciente(paciente);
+        consulta.setDentista(dentista);
+        consulta.setData(jData.getText());
+        consulta.setHoraInicio(jHoraInicio.getText());
+        consulta.setHoraFim(jHoraFim.getText());
+        consultaController.editarConsulta(consulta);
+        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
+    }//GEN-LAST:event_bEditarMouseClicked
+
+    private void jTableConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultasMouseClicked
+        String id = "" + jTableConsultas.getValueAt(jTableConsultas.getSelectedRow(), 0);
+        conexao.conecta();
+        conexao.executaSql("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS WHERE ID = "+id+"");
+        try {
+            conexao.rs.first();
+            jIdConsulta.setText(""+conexao.rs.getInt("id"));
+            jDentista.setText(conexao.rs.getString("dentista"));
+            jPaciente.setText(String.valueOf(conexao.rs.getLong("paciente")));
+            jData.setText(conexao.rs.getString("data_consulta"));
+            jHoraInicio.setText(conexao.rs.getString("hora_inicio"));
+            jHoraFim.setText(conexao.rs.getString("hora_fim"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Errocriado no mouse clicked: "+ex);
+        }
+        conexao.desconecta();
+        /*bEditar.setEnabled(true);
+        bSalvar.setEnabled(false);
+        bExcluir.setEnabled(true);
+        bEditar.setEnabled(true);
+        bCadastrar.setEnabled(false);
+        jNome.setEnabled(true);
+        jTelefone.setEnabled(true);*/
+    }//GEN-LAST:event_jTableConsultasMouseClicked
+
+    private void bExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bExcluirMouseClicked
+        consulta.setId(Integer.parseInt(jIdConsulta.getText()));
+        consultaController.excluiConsulta(consulta);
+        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
+    }//GEN-LAST:event_bExcluirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -297,18 +373,63 @@ public class cadastrarConsulta extends javax.swing.JFrame {
             }
         });
     }
+    
+    /*public void limpaCampos(){
+        jId.setText("");
+        jCpf.setText("");
+        jNome.setText("");
+        jTelefone.setText("");
+    }*/
+    
+    public void preencherTabela(String sql){
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"ID","Dentista", "Paciente", "Data da Consulta", "Hora inicial", "Hora final"};
+        conexao.conecta();
+        conexao.executaSql(sql);
+        
+        try{
+            conexao.rs.first();
+        do{
+            dados.add(new Object[]{conexao.rs.getInt("id") ,conexao.rs.getInt("dentista"), conexao.rs.getInt("paciente"),
+                conexao.rs.getString("data_consulta"),
+                conexao.rs.getString("hora_inicio"),
+                conexao.rs.getString("hora_fim")});
+        }while(conexao.rs.next());
+        }catch(SQLException ex){
+            //JOptionPane.showMessageDialog(rootPane,"erro ao preencher arraLyst: "+ ex);
+        }
+        Tabela modelo = new Tabela(dados, colunas);
+        jTableConsultas.setModel(modelo);
+        jTableConsultas.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTableConsultas.getColumnModel().getColumn(0).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(1).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(2).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(3).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(4).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTableConsultas.getColumnModel().getColumn(5).setResizable(false);
+        jTableConsultas.getTableHeader().setReorderingAllowed(false);
+        jTableConsultas.setAutoResizeMode(jTableConsultas.AUTO_RESIZE_OFF);
+        jTableConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conexao.desconecta();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBuscar;
-    private javax.swing.JButton bBuscar2;
-    private javax.swing.JButton bBuscar3;
     private javax.swing.JButton bBuscar4;
+    private javax.swing.JButton bEditar;
     private javax.swing.JButton bExcluir;
+    private javax.swing.JButton bSalvar;
     private javax.swing.JTextField jCpf;
     private javax.swing.JTextField jData;
     private javax.swing.JTextField jDentista;
     private javax.swing.JTextField jHoraFim;
     private javax.swing.JTextField jHoraInicio;
+    private javax.swing.JTextField jIdConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
