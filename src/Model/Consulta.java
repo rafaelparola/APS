@@ -12,9 +12,9 @@ public class Consulta {
     private Paciente paciente;
     private String horaInicio;
     private String horaFim;
-    private Diagnostico diagnostico;
-    private Procedimento procedimento;
-    private Proagnostico proagnostico;
+    private String diagnostico;
+    private String procedimento;
+    private String prognostico;
     private String tipoConsulta;
 
     /**
@@ -90,43 +90,43 @@ public class Consulta {
     /**
      * @return the diagnostico
      */
-    public Diagnostico getDiagnostico() {
+    public String getDiagnostico() {
         return diagnostico;
     }
 
     /**
      * @param diagnostico the diagnostico to set
      */
-    public void setDiagnostico(Diagnostico diagnostico) {
+    public void setDiagnostico(String diagnostico) {
         this.diagnostico = diagnostico;
     }
 
     /**
      * @return the procedimento
      */
-    public Procedimento getProcedimento() {
+    public String getProcedimento() {
         return procedimento;
     }
 
     /**
      * @param procedimento the procedimento to set
      */
-    public void setProcedimento(Procedimento procedimento) {
+    public void setProcedimento(String procedimento) {
         this.procedimento = procedimento;
     }
 
     /**
      * @return the proagnostico
      */
-    public Proagnostico getProagnostico() {
-        return proagnostico;
+    public String getProagnostico() {
+        return prognostico;
     }
 
     /**
      * @param proagnostico the proagnostico to set
      */
-    public void setProagnostico(Proagnostico proagnostico) {
-        this.proagnostico = proagnostico;
+    public void setProagnostico(String proagnostico) {
+        this.prognostico = proagnostico;
     }
 
     /**
