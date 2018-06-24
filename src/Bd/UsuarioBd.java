@@ -37,7 +37,7 @@ public class UsuarioBd {
        public Usuario verificaLoginSenha(Usuario usuario){
            Usuario retUsuario = new Usuario();
            conexao.conecta();
-           JOptionPane.showMessageDialog(null, usuario.getLogin()+" "+usuario.getSenha());
+           //JOptionPane.showMessageDialog(null, usuario.getLogin()+" "+usuario.getSenha());
         conexao.executaSql("SELECT LOGIN, SENHA, TIPO_USUARIO, CPF_USUARIO FROM USUARIOS"
                 + " WHERE LOGIN = "+"'"+usuario.getLogin()+"' AND SENHA = "+"'"+ usuario.getSenha()+"'");
         try {

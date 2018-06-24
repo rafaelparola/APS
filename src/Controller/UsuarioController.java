@@ -22,7 +22,7 @@ public class UsuarioController {
     public Usuario realizarLogin(Usuario usuario){
         Usuario retUsuario = new Usuario();
         retUsuario = usuarioBd.verificaLoginSenha(usuario);
-        JOptionPane.showMessageDialog(null, retUsuario.getTipoUsuario());
+        //JOptionPane.showMessageDialog(null, retUsuario.getTipoUsuario());
         return retUsuario;
     }
 }

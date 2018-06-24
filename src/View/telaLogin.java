@@ -5,8 +5,10 @@
  */
 package View;
 
+import Controller.DentistaController;
 import Model.Usuario;
 import Controller.UsuarioController;
+import Model.Dentista;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,9 @@ import javax.swing.JOptionPane;
 public class telaLogin extends javax.swing.JFrame {
     Usuario usuario = new Usuario();
     UsuarioController usuarioController = new UsuarioController();
+    Dentista dentista = new Dentista();
+    DentistaController dentistaController = new DentistaController();
+    
     
     /**
      * Creates new form telaLogin
@@ -39,7 +44,7 @@ public class telaLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         bEntrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Login");
 
@@ -89,6 +94,7 @@ public class telaLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bEntrarMouseClicked
@@ -96,10 +102,10 @@ public class telaLogin extends javax.swing.JFrame {
         usuario.setLogin(jLogin.getText());
         usuario.setSenha(jSenha.getText());
         usuarioVal = usuarioController.realizarLogin(usuario);
-        JOptionPane.showMessageDialog(null, usuarioVal.getTipoUsuario());
-        if(usuarioVal.getTipoUsuario() == "D"){
-            
-            TelaPrincipalDentista telaDentista = new TelaPrincipalDentista();
+        //JOptionPane.showMessageDialog(null, usuarioVal.getTipoUsuario());
+        if("D".equals(usuarioVal.getTipoUsuario())){
+            dentista = dentistaController.buscaDentista(usuarioVal.getCpfUsuario());
+            TelaPrincipalDentista telaDentista = new TelaPrincipalDentista(dentista);
             telaDentista.setVisible(true);
             dispose();
         }
