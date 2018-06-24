@@ -5,6 +5,9 @@
  */
 package View;
 
+import Model.Consulta;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -132,292 +135,292 @@ public class telaDentistaConsulta extends javax.swing.JFrame {
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 400, 80));
 
         grupoDentes.add(j31);
-        j31.setText("31");
+        j31.setText("IE31");
         j31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j31ActionPerformed(evt);
             }
         });
-        getContentPane().add(j31, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 390, -1, -1));
+        getContentPane().add(j31, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 390, -1, -1));
 
         grupoDentes.add(j11);
-        j11.setText("11");
+        j11.setText("SD11");
         j11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j11ActionPerformed(evt);
             }
         });
-        getContentPane().add(j11, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, -1));
+        getContentPane().add(j11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, -1, -1));
 
         grupoDentes.add(j12);
-        j12.setText("12");
+        j12.setText("SD12");
         j12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j12ActionPerformed(evt);
             }
         });
-        getContentPane().add(j12, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 100, -1, -1));
+        getContentPane().add(j12, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, -1, -1));
 
         grupoDentes.add(j13);
-        j13.setText("13");
+        j13.setText("SD13");
         j13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j13ActionPerformed(evt);
             }
         });
-        getContentPane().add(j13, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, -1, -1));
+        getContentPane().add(j13, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, -1, -1));
 
         grupoDentes.add(j14);
-        j14.setText("14");
+        j14.setText("SD14");
         j14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j14ActionPerformed(evt);
             }
         });
-        getContentPane().add(j14, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, -1, -1));
+        getContentPane().add(j14, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 140, -1, -1));
 
         grupoDentes.add(j15);
-        j15.setText("15");
+        j15.setText("SD15");
         j15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j15ActionPerformed(evt);
             }
         });
-        getContentPane().add(j15, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, -1, -1));
+        getContentPane().add(j15, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, -1, -1));
 
         grupoDentes.add(j18);
-        j18.setText("18");
+        j18.setText("SD18");
         j18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j18ActionPerformed(evt);
             }
         });
-        getContentPane().add(j18, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, -1, -1));
+        getContentPane().add(j18, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 220, -1, -1));
 
         grupoDentes.add(j16);
-        j16.setText("16");
+        j16.setText("SD16");
         j16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j16ActionPerformed(evt);
             }
         });
-        getContentPane().add(j16, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 180, -1, -1));
+        getContentPane().add(j16, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, -1));
 
         grupoDentes.add(j17);
-        j17.setText("17");
+        j17.setText("SD17");
         j17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j17ActionPerformed(evt);
             }
         });
-        getContentPane().add(j17, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, -1, -1));
+        getContentPane().add(j17, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, -1, -1));
 
         grupoDentes.add(j21);
-        j21.setText("21");
+        j21.setText("SE21");
         j21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j21ActionPerformed(evt);
             }
         });
-        getContentPane().add(j21, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 80, -1, -1));
+        getContentPane().add(j21, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 80, -1, -1));
 
         grupoDentes.add(j22);
-        j22.setText("22");
+        j22.setText("SE22");
         j22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j22ActionPerformed(evt);
             }
         });
-        getContentPane().add(j22, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 100, -1, -1));
+        getContentPane().add(j22, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, -1, -1));
 
         grupoDentes.add(j23);
-        j23.setText("23");
+        j23.setText("SE23");
         j23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j23ActionPerformed(evt);
             }
         });
-        getContentPane().add(j23, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, -1, -1));
+        getContentPane().add(j23, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, -1, -1));
 
         grupoDentes.add(j24);
-        j24.setText("24");
+        j24.setText("SE24");
         j24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j24ActionPerformed(evt);
             }
         });
-        getContentPane().add(j24, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 140, -1, -1));
+        getContentPane().add(j24, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 140, -1, -1));
 
         grupoDentes.add(j25);
-        j25.setText("25");
+        j25.setText("SE25");
         j25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j25ActionPerformed(evt);
             }
         });
-        getContentPane().add(j25, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 160, -1, -1));
+        getContentPane().add(j25, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, -1, -1));
 
         grupoDentes.add(j26);
-        j26.setText("26");
+        j26.setText("SE26");
         j26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j26ActionPerformed(evt);
             }
         });
-        getContentPane().add(j26, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 180, -1, -1));
+        getContentPane().add(j26, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, -1, -1));
 
         grupoDentes.add(j27);
-        j27.setText("27");
+        j27.setText("SE27");
         j27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j27ActionPerformed(evt);
             }
         });
-        getContentPane().add(j27, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 200, -1, -1));
+        getContentPane().add(j27, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 200, -1, -1));
 
         grupoDentes.add(j28);
-        j28.setText("28");
+        j28.setText("SE28");
         j28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j28ActionPerformed(evt);
             }
         });
-        getContentPane().add(j28, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 220, -1, -1));
+        getContentPane().add(j28, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 220, -1, -1));
 
         grupoDentes.add(j48);
-        j48.setText("48");
+        j48.setText("ID48");
         j48.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j48ActionPerformed(evt);
             }
         });
-        getContentPane().add(j48, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, -1, -1));
+        getContentPane().add(j48, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, -1, -1));
 
         grupoDentes.add(j47);
-        j47.setText("47");
+        j47.setText("ID47");
         j47.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j47ActionPerformed(evt);
             }
         });
-        getContentPane().add(j47, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 270, -1, -1));
+        getContentPane().add(j47, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, -1, -1));
 
         grupoDentes.add(j46);
-        j46.setText("46");
+        j46.setText("ID46");
         j46.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j46ActionPerformed(evt);
             }
         });
-        getContentPane().add(j46, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 290, -1, -1));
+        getContentPane().add(j46, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 290, -1, -1));
 
         grupoDentes.add(j45);
-        j45.setText("45");
+        j45.setText("ID45");
         j45.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j45ActionPerformed(evt);
             }
         });
-        getContentPane().add(j45, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 310, -1, -1));
+        getContentPane().add(j45, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 310, -1, -1));
 
         grupoDentes.add(j44);
-        j44.setText("44");
+        j44.setText("ID44");
         j44.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j44ActionPerformed(evt);
             }
         });
-        getContentPane().add(j44, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 330, -1, -1));
+        getContentPane().add(j44, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, -1, -1));
 
         grupoDentes.add(j43);
-        j43.setText("43");
+        j43.setText("ID43");
         j43.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j43ActionPerformed(evt);
             }
         });
-        getContentPane().add(j43, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 350, -1, -1));
+        getContentPane().add(j43, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, -1, -1));
 
         grupoDentes.add(j42);
-        j42.setText("42");
+        j42.setText("ID42");
         j42.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j42ActionPerformed(evt);
             }
         });
-        getContentPane().add(j42, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 370, -1, -1));
+        getContentPane().add(j42, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 370, -1, -1));
 
         grupoDentes.add(j41);
-        j41.setText("41");
+        j41.setText("ID41");
         j41.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j41ActionPerformed(evt);
             }
         });
-        getContentPane().add(j41, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 390, -1, -1));
+        getContentPane().add(j41, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, -1, -1));
 
         grupoDentes.add(j38);
-        j38.setText("38");
+        j38.setText("IE38");
         j38.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j38ActionPerformed(evt);
             }
         });
-        getContentPane().add(j38, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 250, -1, -1));
+        getContentPane().add(j38, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 250, -1, -1));
 
         grupoDentes.add(j37);
-        j37.setText("37");
+        j37.setText("IE37");
         j37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j37ActionPerformed(evt);
             }
         });
-        getContentPane().add(j37, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 270, -1, -1));
+        getContentPane().add(j37, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 270, -1, -1));
 
         grupoDentes.add(j36);
-        j36.setText("36");
+        j36.setText("IE36");
         j36.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j36ActionPerformed(evt);
             }
         });
-        getContentPane().add(j36, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 290, -1, -1));
+        getContentPane().add(j36, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 290, -1, -1));
 
         grupoDentes.add(j35);
-        j35.setText("35");
+        j35.setText("IE35");
         j35.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j35ActionPerformed(evt);
             }
         });
-        getContentPane().add(j35, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 310, -1, -1));
+        getContentPane().add(j35, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, -1, -1));
 
         grupoDentes.add(j34);
-        j34.setText("34");
+        j34.setText("IE34");
         j34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j34ActionPerformed(evt);
             }
         });
-        getContentPane().add(j34, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 330, -1, -1));
+        getContentPane().add(j34, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 330, -1, -1));
 
         grupoDentes.add(j33);
-        j33.setText("33");
+        j33.setText("IE33");
         j33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j33ActionPerformed(evt);
             }
         });
-        getContentPane().add(j33, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 350, -1, -1));
+        getContentPane().add(j33, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 350, -1, -1));
 
         grupoDentes.add(j32);
-        j32.setText("32");
+        j32.setText("IE32");
         j32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 j32ActionPerformed(evt);
             }
         });
-        getContentPane().add(j32, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 370, -1, -1));
+        getContentPane().add(j32, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -551,7 +554,19 @@ public class telaDentistaConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_j32ActionPerformed
 
     private void bSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarMouseClicked
-        JOptionPane.showMessageDialog(this, grupoDentes.getSelection().getActionCommand());
+        String dente;
+        Enumeration elements = grupoDentes.getElements();
+    while (elements.hasMoreElements()) {
+      AbstractButton cb = (AbstractButton)elements.nextElement();
+      if (cb.isSelected()) {
+        JOptionPane.showMessageDialog(this, cb.getText());
+        dente = cb.getText();
+      }
+    }
+    
+        
+        //--if(j11.)
+        //JOptionPane.showMessageDialog(this, j11.getText());
     }//GEN-LAST:event_bSalvarMouseClicked
 
     /**
