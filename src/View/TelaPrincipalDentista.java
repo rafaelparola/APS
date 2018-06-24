@@ -6,7 +6,9 @@
 package View;
 
 import Bd.Conexao;
+import Model.Consulta;
 import Model.Dentista;
+import Model.Paciente;
 import Model.Tabela;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import javax.swing.ListSelectionModel;
 public class TelaPrincipalDentista extends javax.swing.JFrame {
 
     Conexao conexao = new Conexao();
+    Consulta consulta = new Consulta();
+    Paciente paciente = new Paciente();
     
     /**
      * Creates new form telaPrincipalDentista
@@ -45,7 +49,12 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsultas = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
+        jHoraFim = new javax.swing.JTextField();
+        jIdConsulta = new javax.swing.JTextField();
+        jHoraInicio = new javax.swing.JTextField();
+        jData = new javax.swing.JTextField();
+        jPaciente = new javax.swing.JTextField();
+        bEditaConsulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,24 +71,50 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConsultas);
 
-        jTextField2.setText("jTextField2");
+        bEditaConsulta.setText("Editar informações consulta");
+        bEditaConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bEditaConsultaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jNomeDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                        .addComponent(jNomeDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jIdConsulta)
+                            .addComponent(jPaciente)
+                            .addComponent(jData)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jHoraInicio)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(bEditaConsulta)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(jHoraFim))))))))
+                .addGap(56, 56, 56)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,8 +126,18 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jNomeDentista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(81, 81, 81)
+                        .addComponent(jIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jHoraFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(bEditaConsulta)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -100,6 +145,38 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
 
         setBounds(0, 0, 1026, 507);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultasMouseClicked
+        String id = "" + jTableConsultas.getValueAt(jTableConsultas.getSelectedRow(), 0);
+        conexao.conecta();
+        conexao.executaSql("SELECT ID, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS WHERE ID = "+id+"");
+        try {
+            conexao.rs.first();
+            jIdConsulta.setText(""+conexao.rs.getInt("id"));
+            jPaciente.setText(String.valueOf(conexao.rs.getLong("paciente")));
+            jData.setText(conexao.rs.getString("data_consulta"));
+            jHoraInicio.setText(conexao.rs.getString("hora_inicio"));
+            jHoraFim.setText(conexao.rs.getString("hora_fim"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Errocriado no mouse clicked: "+ex);
+        }
+        conexao.desconecta();
+        /*bEditar.setEnabled(true);
+        bSalvar.setEnabled(false);
+        bExcluir.setEnabled(true);
+        bEditar.setEnabled(true);
+        bCadastrar.setEnabled(false);
+        jNome.setEnabled(true);
+        jTelefone.setEnabled(true);*/
+    }//GEN-LAST:event_jTableConsultasMouseClicked
+
+    private void bEditaConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bEditaConsultaMouseClicked
+        consulta.setId(Integer.parseInt(jIdConsulta.getText()));
+        paciente.setId(Long.parseLong(jPaciente.getText()));
+        consulta.setPaciente(paciente);
+        TelaDentistaConsulta telaDentistaConsulta = new TelaDentistaConsulta(consulta);
+        telaDentistaConsulta.setVisible(true);
+    }//GEN-LAST:event_bEditaConsultaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -141,7 +218,8 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
                 new telaPrincipalDentista().setVisible(true);
             }
         });*/
-    }
+    }                                         
+
     
     public void preencherTabela(String sql){
         ArrayList dados = new ArrayList();
@@ -179,10 +257,15 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bEditaConsulta;
+    private javax.swing.JTextField jData;
+    private javax.swing.JTextField jHoraFim;
+    private javax.swing.JTextField jHoraInicio;
+    private javax.swing.JTextField jIdConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jNomeDentista;
+    private javax.swing.JTextField jPaciente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConsultas;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

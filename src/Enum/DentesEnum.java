@@ -10,7 +10,7 @@ package Enum;
  * @author rafael
  */
 public enum DentesEnum {
-    //Dntes superiores(lado direito)
+    //Dentes superiores(lado direito)
     SD11("Incisivo central superior direito"),
     SD12("Incisivo lateral superior direito"),
     SD13("Canino superior direito"),
@@ -19,7 +19,7 @@ public enum DentesEnum {
     SD16("Primeiro molar superior direito "),
     SD17("Segundo molar superior direito"),
     SD18("Terceiro molar superior direito (siso)"),
-    
+    //Dentes superiores(lado esquerdo)
     SE21("Incisivo central superior esquerdo"),
     SE22("Incisivo lateral superior esquerdo"),
     SE23("Canino superior esquerdo"),
@@ -28,7 +28,7 @@ public enum DentesEnum {
     SE26("Primeiro molar superior esquerdo"),
     SE27("Segundo molar superior esquerdo"),
     SE28("Terceiro molar superior esquerdo (siso)"),
-    
+    //Dentes inferiores(lado esquerdo)
     IE31("Incisivo central inferior esquerdo"),
     IE32("Incisivo lateral inferior esquerdo"),
     IE33("Canino superior inferior esquerdo"),
@@ -37,7 +37,7 @@ public enum DentesEnum {
     IE36("Primeiro molar inferior esquerdo"),
     IE37("Segundo molar inferior esquerdo"),
     IE38("Terceiro molar inferior esquerdo (siso)"),
-    
+    //Dentes inferiores (lado direito)
     ID41("Incisivo central inferior direito"),
     ID42("Incisivo lateral inferior direito"),
     ID43("Canino superior inferior direito"),
@@ -53,4 +53,7 @@ public enum DentesEnum {
         this.dente = numDente;
     }
     
+    public String getNomeDente(){
+        return this.dente;
+    }
 }
