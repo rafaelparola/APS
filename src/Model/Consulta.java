@@ -12,9 +12,6 @@ public class Consulta {
     private Paciente paciente;
     private String horaInicio;
     private String horaFim;
-    private String diagnostico;
-    private String procedimento;
-    private String prognostico;
     private String tipoConsulta;
 
     /**
@@ -85,48 +82,6 @@ public class Consulta {
      */
     public void setHoraFim(String horaFim) {
         this.horaFim = horaFim;
-    }
-
-    /**
-     * @return the diagnostico
-     */
-    public String getDiagnostico() {
-        return diagnostico;
-    }
-
-    /**
-     * @param diagnostico the diagnostico to set
-     */
-    public void setDiagnostico(String diagnostico) {
-        this.diagnostico = diagnostico;
-    }
-
-    /**
-     * @return the procedimento
-     */
-    public String getProcedimento() {
-        return procedimento;
-    }
-
-    /**
-     * @param procedimento the procedimento to set
-     */
-    public void setProcedimento(String procedimento) {
-        this.procedimento = procedimento;
-    }
-
-    /**
-     * @return the proagnostico
-     */
-    public String getProagnostico() {
-        return prognostico;
-    }
-
-    /**
-     * @param proagnostico the proagnostico to set
-     */
-    public void setProagnostico(String proagnostico) {
-        this.prognostico = proagnostico;
     }
 
     /**

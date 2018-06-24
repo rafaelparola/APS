@@ -5,24 +5,31 @@
  */
 package View;
 
+import Controller.TratamentoController;
 import Model.Consulta;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import Enum.DentesEnum;
+import Model.Tratamento;
 
 /**
  *
  * @author rafael
  */
 public class TelaDentistaConsulta extends javax.swing.JFrame {
-
+    Consulta consulta = new Consulta();
+    Tratamento tratamento = new Tratamento();
+    TratamentoController tratamentoController = new TratamentoController();
+    
     /**
      * Creates new form telaDentistaConsulta
      */
     public TelaDentistaConsulta(Consulta consulta) {
         initComponents();
+        this.consulta = consulta;
         lDente.setText(""+consulta.getPaciente().getId());
+        
     }
 
     /**
@@ -596,7 +603,7 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_j32ActionPerformed
 
     private void bSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarMouseClicked
-        String dente;
+        String dente = "";
         Enumeration elements = grupoDentes.getElements();
     while (elements.hasMoreElements()) {
       AbstractButton cb = (AbstractButton)elements.nextElement();
@@ -605,8 +612,12 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
         dente = cb.getText();
       }
     }
-    
-    
+    tratamento.setConsulta(consulta);
+    tratamento.setDente(dente);
+    tratamento.setDiagnostico(jDiagnostico.getText());
+    tratamento.setProcedimento(jProcedimento.getText());
+    tratamento.setPrognostico(jPrognostico.getText());
+    tratamentoController.insereTratamento(tratamento);
     
         
         //--if(j11.)
