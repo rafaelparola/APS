@@ -7,8 +7,8 @@ package Model;
 public class Usuario extends Pessoa {
     private String login;
     private String senha;
-    private char tipoUsuario;
-    private long idUsuario;
+    private String tipoUsuario;
+    private long cpfUsuario;
 
     /**
      * @return the login
@@ -41,29 +41,29 @@ public class Usuario extends Pessoa {
     /**
      * @return the tipoUsuario
      */
-    public char getTipoUsuario() {
+    public String getTipoUsuario() {
         return tipoUsuario;
     }
 
     /**
      * @param tipoUsuario the tipoUsuario to set
      */
-    public void setTipoUsuario(char tipoUsuario) {
+    public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
     /**
      * @return the idUsuario
      */
-    public long getIdUsuario() {
-        return idUsuario;
+    public long getCpfUsuario() {
+        return cpfUsuario;
     }
 
     /**
      * @param idUsuario the idUsuario to set
      */
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setCpfUsuario(long cpfUsuario) {
+        this.cpfUsuario = cpfUsuario;
     }
     
     
