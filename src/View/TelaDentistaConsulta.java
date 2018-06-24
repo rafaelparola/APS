@@ -12,6 +12,9 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import Enum.DentesEnum;
 import Model.Tratamento;
+import Model.Cirurgia;
+import Controller.CirurgiaController;
+import Controller.ConsultaController;
 
 /**
  *
@@ -20,7 +23,10 @@ import Model.Tratamento;
 public class TelaDentistaConsulta extends javax.swing.JFrame {
     Consulta consulta = new Consulta();
     Tratamento tratamento = new Tratamento();
+    Cirurgia cirurgia = new Cirurgia();
+    CirurgiaController cirurgiaController = new CirurgiaController();
     TratamentoController tratamentoController = new TratamentoController();
+    ConsultaController consultaController = new ConsultaController();
     
     /**
      * Creates new form telaDentistaConsulta
@@ -91,24 +97,26 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
         j32 = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         lPaciente1 = new javax.swing.JLabel();
+        lPrevisaoTempoCirurgia = new javax.swing.JLabel();
+        jPrevisaoTempoCirurgia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Prognóstico");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
 
         jLabel2.setText("Diagnóstico");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
 
         jLabel3.setText("Procedimento");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, -1));
 
         jSolicitar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sem retorno", "Retorno de Consulta", "Cirurgia" }));
-        getContentPane().add(jSolicitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, 30));
+        getContentPane().add(jSolicitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, 30));
 
         jLabel4.setText("Solicitar");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, 20));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, 20));
 
         bSalvar.setText("Salvar");
         bSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,25 +133,25 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
         lDente.setText("Dente");
-        getContentPane().add(lDente, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, -1, -1));
+        getContentPane().add(lDente, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         jPrognostico.setColumns(20);
         jPrognostico.setRows(5);
         jScrollPane1.setViewportView(jPrognostico);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 400, 80));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 400, 80));
 
         jDiagnostico.setColumns(20);
         jDiagnostico.setRows(5);
         jScrollPane2.setViewportView(jDiagnostico);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 400, 80));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 400, 80));
 
         jProcedimento.setColumns(20);
         jProcedimento.setRows(5);
         jScrollPane3.setViewportView(jProcedimento);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 400, 80));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 400, 80));
 
         grupoDentes.add(j31);
         j31.setText("IE31");
@@ -439,6 +447,10 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
         lPaciente1.setText("\"João Pedro\"");
         getContentPane().add(lPaciente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
 
+        lPrevisaoTempoCirurgia.setText("Previsão de Tempo");
+        getContentPane().add(lPrevisaoTempoCirurgia, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 390, -1, -1));
+        getContentPane().add(jPrevisaoTempoCirurgia, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 50, -1));
+
         setBounds(0, 0, 1130, 538);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -612,12 +624,26 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
         dente = cb.getText();
       }
     }
+    
     tratamento.setConsulta(consulta);
     tratamento.setDente(dente);
     tratamento.setDiagnostico(jDiagnostico.getText());
     tratamento.setProcedimento(jProcedimento.getText());
     tratamento.setPrognostico(jPrognostico.getText());
     tratamentoController.insereTratamento(tratamento);
+    
+    
+    if(jSolicitar.getSelectedItem().toString().equals("Retorno de Consulta")){
+        consulta.setTipoConsulta("2");
+        JOptionPane.showMessageDialog(null, consulta.getTipoConsulta());
+        consultaController.requererRetornoConsulta(consulta);        
+    }else if(jSolicitar.getSelectedItem().toString().equals("Cirurgia")){
+        cirurgia.setId(consulta.getId());
+        cirurgia.setDentista(consulta.getDentista());
+        cirurgia.setPaciente(consulta.getPaciente());
+        cirurgia.setPrevisaoTempo(lPrevisaoTempoCirurgia.getText());
+        cirurgiaController.requererCirurgia(cirurgia);
+    }
     
         
         //--if(j11.)
@@ -709,6 +735,7 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField jPrevisaoTempoCirurgia;
     private javax.swing.JTextArea jProcedimento;
     private javax.swing.JTextArea jPrognostico;
     private javax.swing.JScrollPane jScrollPane1;
@@ -717,5 +744,6 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jSolicitar;
     private javax.swing.JLabel lDente;
     private javax.swing.JLabel lPaciente1;
+    private javax.swing.JLabel lPrevisaoTempoCirurgia;
     // End of variables declaration//GEN-END:variables
 }

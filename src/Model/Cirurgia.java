@@ -4,6 +4,7 @@ package Model;
 
 public class Cirurgia extends Consulta{
     private Tratamento tratamento;
+    private String previsaoTempo;
 
     /**
      * @return the tratamento
@@ -38,6 +39,20 @@ public class Cirurgia extends Consulta{
         }
         return resultado;
       }
+
+    /**
+     * @return the previsaoTempo
+     */
+    public String getPrevisaoTempo() {
+        return previsaoTempo;
+    }
+
+    /**
+     * @param previsaoTempo the previsaoTempo to set
+     */
+    public void setPrevisaoTempo(String previsaoTempo) {
+        this.previsaoTempo = previsaoTempo;
+    }
         
 
     

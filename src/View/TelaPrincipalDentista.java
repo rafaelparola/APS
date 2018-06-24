@@ -24,6 +24,7 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
     Conexao conexao = new Conexao();
     Consulta consulta = new Consulta();
     Paciente paciente = new Paciente();
+    Dentista dentista = new Dentista();
     
     /**
      * Creates new form telaPrincipalDentista
@@ -32,6 +33,7 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
         initComponents();
         jNomeDentista.setText(dentista.getNome());
         JOptionPane.showMessageDialog(this, dentista.getCpf());
+        this.dentista = dentista;
         preencherTabela("SELECT C.ID, C.PACIENTE, C.DATA_CONSULTA, C.HORA_INICIO, C.HORA_FIM FROM CONSULTAS C"
                 + " INNER JOIN DENTISTAS D ON D.ID = C.DENTISTA WHERE D.CPF = "+ dentista.getCpf());
     }
@@ -174,12 +176,13 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
         consulta.setId(Integer.parseInt(jIdConsulta.getText()));
         paciente.setId(Long.parseLong(jPaciente.getText()));
         consulta.setPaciente(paciente);
+        consulta.setDentista(dentista);
         TelaDentistaConsulta telaDentistaConsulta = new TelaDentistaConsulta(consulta);
         telaDentistaConsulta.setVisible(true);
     }//GEN-LAST:event_bEditaConsultaMouseClicked
 
     /**
-     * @param args the command line arguments
+     * @param args the command line argumentsSELECT ID, DENTISTA, PACIENTE,PREVISAO_TEMPO FROM CIRURGIAS WHERE DATA_CIRURGIA IS NULL ORDER BY DENTISTA
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

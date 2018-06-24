@@ -128,4 +128,22 @@ public class ConsultaBd {
         conexao.desconecta();
     }
     
+    public void requererRetornoConsulta(Consulta consulta){
+         conexao.conecta();
+         JOptionPane.showMessageDialog(null, consulta.getTipoConsulta());
+        try {
+            PreparedStatement pst = conexao.con.prepareStatement("UPDATE "
+                    + "CONSULTAS SET TIPO_RETORNO = ?" + 
+                    " WHERE id = ?");
+            
+            pst.setString(1, consulta.getTipoConsulta());
+            pst.setInt(2, consulta.getId());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Dados editados no requerer consulta na tabela consulta");
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao editar dados na tabela consulta ex: "+ ex);
+        }
+        conexao.desconecta();
+    }
+    
 }

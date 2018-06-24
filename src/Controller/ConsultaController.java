@@ -47,5 +47,7 @@ public class ConsultaController {
             JOptionPane.showMessageDialog(null, "Consulta excluída com sucesso");
             
     }
-    
+    public void requererRetornoConsulta(Consulta consulta){
+        consultaBd.requererRetornoConsulta(consulta);
+    }
 }

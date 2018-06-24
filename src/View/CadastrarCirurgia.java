@@ -13,6 +13,7 @@ import Controller.CirurgiaController;
 import Model.Tabela;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -30,6 +31,8 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
      */
     public CadastrarCirurgia() {
         initComponents();
+        
+        preencherTabela("SELECT ID, DENTISTA, PACIENTE,PREVISAO_TEMPO FROM CIRURGIA WHERE DATA_CIRURGIA IS NULL ORDER BY DENTISTA");
     }
 
     /**
@@ -64,6 +67,8 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jId = new javax.swing.JTextField();
+        jPrevisaoTempo = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -153,6 +158,8 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
 
         jId.setText("jTextField2");
 
+        jLabel8.setText("Previsao");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,10 +173,6 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jHoraFim, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -177,7 +180,13 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addComponent(jLabel6)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jPrevisaoTempo)
+                                                .addComponent(jHoraFim, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,16 +210,21 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
                         .addComponent(jIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bBuscar4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(353, 353, 353))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bBuscar4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bSalvar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bExcluir))
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,14 +264,19 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jPrevisaoTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bBuscar4)
                     .addComponent(bSalvar)
                     .addComponent(bEditar)
-                    .addComponent(bExcluir)
-                    .addComponent(jId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(bExcluir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -279,7 +298,7 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
         //jTelefone.setEnabled(false);
         //bCadastrar.setEnabled(true);
         //preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
-        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
+        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CIRURGIA, HORA_INICIO, HORA_FIM FROM CIRURGIA ORDER BY DENTISTA");
 
     }//GEN-LAST:event_bSalvarMouseClicked
 
@@ -294,15 +313,13 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
     private void jTableConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultasMouseClicked
         String id = "" + jTableConsultas.getValueAt(jTableConsultas.getSelectedRow(), 0);
         conexao.conecta();
-        conexao.executaSql("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS WHERE ID = "+id+"");
+        conexao.executaSql("SELECT ID, DENTISTA, PACIENTE, PREVISAO_TEMPO FROM CIRURGIA WHERE ID = "+id+"");
         try {
             conexao.rs.first();
             jIdConsulta.setText(""+conexao.rs.getInt("id"));
             jDentista.setText(conexao.rs.getString("dentista"));
             jPaciente.setText(String.valueOf(conexao.rs.getLong("paciente")));
-            jData.setText(conexao.rs.getString("data_consulta"));
-            jHoraInicio.setText(conexao.rs.getString("hora_inicio"));
-            jHoraFim.setText(conexao.rs.getString("hora_fim"));
+            jPrevisaoTempo.setText(conexao.rs.getString("previsao_tempo"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Errocriado no mouse clicked: "+ex);
         }
@@ -322,7 +339,7 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
 
     private void bExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bExcluirMouseClicked
         cirurgia.setId(Integer.parseInt(jIdConsulta.getText()));
-        cirurgiaController.excluiCirurgia(cirurgia);
+        //cirurgiaController.excluiCirurgia(cirurgia);
         preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
     }//GEN-LAST:event_bExcluirMouseClicked
 
@@ -339,7 +356,7 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
         cirurgia.setData(jData.getText());
         cirurgia.setHoraInicio(jHoraInicio.getText());
         cirurgia.setHoraFim(jHoraFim.getText());
-        cirurgiaController.editarConsulta(consulta);
+        //cirurgiaController.editarConsulta(consulta);
         preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
     }//GEN-LAST:event_bEditarMouseClicked
 
@@ -385,7 +402,7 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
     
     public void preencherTabela(String sql){
         ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"ID","Dentista", "Paciente", "Data da Consulta", "Hora inicial", "Hora final"};
+        String[] colunas = new String[]{"ID","Dentista", "Paciente", "Previsao de tempo"};
         conexao.conecta();
         conexao.executaSql(sql);
         
@@ -393,9 +410,7 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
             conexao.rs.first();
         do{
             dados.add(new Object[]{conexao.rs.getInt("id") ,conexao.rs.getInt("dentista"), conexao.rs.getInt("paciente"),
-                conexao.rs.getString("data_consulta"),
-                conexao.rs.getString("hora_inicio"),
-                conexao.rs.getString("hora_fim")});
+                conexao.rs.getString("previsao_tempo")});
         }while(conexao.rs.next());
         }catch(SQLException ex){
             //JOptionPane.showMessageDialog(rootPane,"erro ao preencher arraLyst: "+ ex);
@@ -410,10 +425,6 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
         jTableConsultas.getColumnModel().getColumn(2).setResizable(false);
         jTableConsultas.getColumnModel().getColumn(3).setPreferredWidth(100);
         jTableConsultas.getColumnModel().getColumn(3).setResizable(false);
-        jTableConsultas.getColumnModel().getColumn(4).setPreferredWidth(100);
-        jTableConsultas.getColumnModel().getColumn(4).setResizable(false);
-        jTableConsultas.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTableConsultas.getColumnModel().getColumn(5).setResizable(false);
         jTableConsultas.getTableHeader().setReorderingAllowed(false);
         jTableConsultas.setAutoResizeMode(jTableConsultas.AUTO_RESIZE_OFF);
         jTableConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -440,7 +451,9 @@ public class CadastrarCirurgia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jPaciente;
+    private javax.swing.JTextField jPrevisaoTempo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConsultas;
     private javax.swing.JTextField jTextField1;
