@@ -5,8 +5,13 @@
  */
 package View;
 
+import Bd.Conexao;
 import Model.Dentista;
+import Model.Tabela;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -14,12 +19,17 @@ import javax.swing.JOptionPane;
  */
 public class TelaPrincipalDentista extends javax.swing.JFrame {
 
+    Conexao conexao = new Conexao();
+    
     /**
      * Creates new form telaPrincipalDentista
      */
     public TelaPrincipalDentista(Dentista dentista) {
         initComponents();
         jNomeDentista.setText(dentista.getNome());
+        JOptionPane.showMessageDialog(this, dentista.getCpf());
+        preencherTabela("SELECT C.ID, C.PACIENTE, C.DATA_CONSULTA, C.HORA_INICIO, C.HORA_FIM FROM CONSULTAS C"
+                + " INNER JOIN DENTISTAS D ON D.ID = C.DENTISTA WHERE D.CPF = "+ dentista.getCpf());
     }
 
     /**
@@ -34,14 +44,14 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
         jNomeDentista = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableConsultas = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Dentista");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,7 +62,7 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableConsultas);
 
         jTextField2.setText("jTextField2");
 
@@ -132,12 +142,47 @@ public class TelaPrincipalDentista extends javax.swing.JFrame {
             }
         });*/
     }
+    
+    public void preencherTabela(String sql){
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"ID", "Paciente", "Data da Consulta", "Hora inicial", "Hora final"};
+        conexao.conecta();
+        conexao.executaSql(sql);
+        
+        try{
+            conexao.rs.first();
+        do{
+            dados.add(new Object[]{conexao.rs.getInt("id") , conexao.rs.getInt("paciente"),
+                conexao.rs.getString("data_consulta"),
+                conexao.rs.getString("hora_inicio"),
+                conexao.rs.getString("hora_fim")});
+        }while(conexao.rs.next());
+        }catch(SQLException ex){
+            //JOptionPane.showMessageDialog(rootPane,"erro ao preencher arraLyst: "+ ex);
+        }
+        Tabela modelo = new Tabela(dados, colunas);
+        jTableConsultas.setModel(modelo);
+        jTableConsultas.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTableConsultas.getColumnModel().getColumn(0).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(1).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(2).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(3).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(4).setResizable(false);
+        jTableConsultas.getTableHeader().setReorderingAllowed(false);
+        jTableConsultas.setAutoResizeMode(jTableConsultas.AUTO_RESIZE_OFF);
+        jTableConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conexao.desconecta();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jNomeDentista;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableConsultas;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
