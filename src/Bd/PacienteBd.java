@@ -92,5 +92,20 @@ public class PacienteBd {
         }
         conexao.desconecta();
     }
-    
+    public Paciente buscaPaciente(long cpf){
+        conexao.conecta();
+        conexao.executaSql("SELECT ID, NOME, CPF, CRO, TELEFONE_FIXO, HORA_INICIO, HORA_FIM FROM DENTISTAS"
+                + " WHERE CPF = "+cpf+"");
+        try {
+            conexao.rs.first();
+            paciente.setId(conexao.rs.getLong("id"));
+            paciente.setNome(conexao.rs.getString("nome"));
+            paciente.setCpf(conexao.rs.getLong("cpf"));
+            paciente.setTelefoneFixo(conexao.rs.getString("telefone_fixo"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+        }
+        conexao.desconecta();
+        return paciente;
+    }
 }

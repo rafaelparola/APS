@@ -641,7 +641,7 @@ public class TelaDentistaConsulta extends javax.swing.JFrame {
         cirurgia.setId(consulta.getId());
         cirurgia.setDentista(consulta.getDentista());
         cirurgia.setPaciente(consulta.getPaciente());
-        cirurgia.setPrevisaoTempo(lPrevisaoTempoCirurgia.getText());
+        cirurgia.setPrevisaoTempo(jPrevisaoTempoCirurgia.getText());
         cirurgiaController.requererCirurgia(cirurgia);
     }
     

@@ -40,4 +40,10 @@ public class PacienteController {
             
     }
     
+    public Paciente buscaPaciente(long cpf){
+            
+            return pacienteBd.buscaPaciente(cpf);
+            
+    }
+    
 }
