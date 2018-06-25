@@ -117,6 +117,8 @@ public class TelaLogin extends javax.swing.JFrame {
         else if(usuario.getLogin().equals("adm") && usuario.getSenha().equals("adm")){
             TelaPrincipalAdministrador telaPrincipalAdministrador = new TelaPrincipalAdministrador();
             telaPrincipalAdministrador.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario ou senha inválidos.");
         }
     }//GEN-LAST:event_bEntrarMouseClicked
 

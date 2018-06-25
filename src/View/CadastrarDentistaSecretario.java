@@ -403,7 +403,9 @@ public class CadastrarDentistaSecretario extends javax.swing.JFrame {
     }//GEN-LAST:event_bSalvarActionPerformed
 
     private void bSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarMouseClicked
-           
+    if(jLogin.getText() != "" && jSenha.getText() != ""){
+        
+    
         if(jDentistaSecretario.getSelectedItem().toString().equals("Dentista")){
             try {
                if("".equals(jCpf.getText())){
@@ -476,6 +478,7 @@ public class CadastrarDentistaSecretario extends javax.swing.JFrame {
         bCadastrar.setEnabled(true);
         preencherTabelaSecretarios("SELECT NOME, CPF, TELEFONE_FIXO FROM SECRETARIOS ORDER BY NOME");
         }
+    } else {JOptionPane.showMessageDialog(null, "Campos obrigatórios não preenchidos.");}
     }//GEN-LAST:event_bSalvarMouseClicked
 
     private void jTableDentistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDentistasMouseClicked

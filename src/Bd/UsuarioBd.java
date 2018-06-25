@@ -52,7 +52,7 @@ public class UsuarioBd {
               // }
            
         }else{
-                JOptionPane.showMessageDialog(null, "Usuario ou senha inválidos.");
+                //JOptionPane.showMessageDialog(null, "Usuario ou senha inválidos.");
             }
             //JOptionPane.showMessageDialog(null, "Validação cpf ok");
            
@@ -61,7 +61,7 @@ public class UsuarioBd {
             JOptionPane.showMessageDialog(null, "Não deu certo: "+ ex);
             
         }
-        JOptionPane.showMessageDialog(null, retUsuario.getTipoUsuario());
+        //JOptionPane.showMessageDialog(null, retUsuario.getTipoUsuario());
         conexao.desconecta();
         return retUsuario;
        }

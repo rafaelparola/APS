@@ -17,7 +17,7 @@ import javax.swing.ListSelectionModel;
  * @author rafael
  */
 public class CadastrarPaciente extends javax.swing.JFrame {
-
+        
         Paciente paciente = new Paciente();
         PacienteController pacienteController = new PacienteController();
         Conexao conexao = new Conexao();
@@ -29,6 +29,8 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         
         initComponents();
         preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
+        jId.setEnabled(false);
+        
     }
 
     /**
@@ -296,8 +298,8 @@ public class CadastrarPaciente extends javax.swing.JFrame {
 
     private void bCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bCadastrarMouseClicked
         bSalvar.setEnabled(true);
-        bEditar.setEnabled(true);
-        bExcluir.setEnabled(true);
+        bEditar.setEnabled(false);
+        bExcluir.setEnabled(false);
         bCadastrar.setEnabled(false);
         bBuscar.setEnabled(false);
     }//GEN-LAST:event_bCadastrarMouseClicked
@@ -320,9 +322,10 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         pacienteController.inserePaciente(paciente);
         this.limpaCampos();
         bSalvar.setEnabled(false);
-        jNome.setEnabled(false);
-        jTelefone.setEnabled(false);
+        bEditar.setEnabled(false);
+        bExcluir.setEnabled(false);
         bCadastrar.setEnabled(true);
+        bBuscar.setEnabled(true);
         preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
         
         
@@ -352,7 +355,11 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         
         pacienteController.editaPaciente(paciente);
         this.limpaCampos();
-        
+        bCadastrar.setEnabled(true);
+        bBuscar.setEnabled(true);
+        bEditar.setEnabled(false);
+        bExcluir.setEnabled(false);
+        bSalvar.setEnabled(false);
         preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
         
     }//GEN-LAST:event_bEditarMouseClicked
@@ -394,6 +401,7 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         bEditar.setEnabled(false);
         bExcluir.setEnabled(false);
         bEditar.setEnabled(false);
+        bBuscar.setEnabled(true);
         jNome.setEnabled(false);
         jTelefone.setEnabled(false);
         this.limpaCampos();

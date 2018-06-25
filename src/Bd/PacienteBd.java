@@ -94,7 +94,7 @@ public class PacienteBd {
     }
     public Paciente buscaPaciente(long cpf){
         conexao.conecta();
-        conexao.executaSql("SELECT ID, NOME, CPF, CRO, TELEFONE_FIXO, HORA_INICIO, HORA_FIM FROM DENTISTAS"
+        conexao.executaSql("SELECT ID, NOME, CPF, TELEFONE_FIXO FROM PACIENTES"
                 + " WHERE CPF = "+cpf+"");
         try {
             conexao.rs.first();

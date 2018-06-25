@@ -31,10 +31,16 @@ public class CadastrarConsulta extends javax.swing.JFrame {
     /** Creates new form cadastrarConsulta */
     public CadastrarConsulta() {
         initComponents();
-        
-        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
-        preencherTabelaRetorno("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS WHERE "
-                + "TIPO_RETORNO = '2' ORDER BY DENTISTA");
+        jIdConsulta.setEnabled(false);
+        preencherTabela("SELECT C.ID, C.DENTISTA, D.NOME, C.PACIENTE, P.NOME,C.DATA_CONSULTA, C.HORA_INICIO, C.HORA_FIM FROM CONSULTAS C "
+                + "INNER JOIN DENTISTAS D ON C.DENTISTA = D.ID "
+                + "INNER JOIN PACIENTES P ON C.PACIENTE = P.ID "
+                + "ORDER BY DENTISTA");
+        preencherTabelaRetorno("SELECT C.ID, C.DENTISTA, D.NOME, C.PACIENTE, P.NOME FROM CONSULTAS C "
+                + "INNER JOIN DENTISTAS D ON C.DENTISTA = D.ID "
+                + "INNER JOIN PACIENTES P ON C.PACIENTE = P.ID "
+                + "WHERE "
+                + "C.TIPO_RETORNO = '2' ORDER BY C.DENTISTA");
     }
 
     /** This method is called from within the constructor to
@@ -71,6 +77,8 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         jTableConsultasRetorno = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jNomeDentista = new javax.swing.JTextField();
+        jNomePaciente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,9 +104,9 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         jLabel7.setText("CPF");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 64, -1, -1));
         getContentPane().add(jCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 58, 133, -1));
-        getContentPane().add(jPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 94, 133, -1));
-        getContentPane().add(jDentista, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 126, 133, -1));
-        getContentPane().add(jData, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 160, 133, -1));
+        getContentPane().add(jPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 94, 20, -1));
+        getContentPane().add(jDentista, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 20, -1));
+        getContentPane().add(jData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 130, -1));
         getContentPane().add(jHoraFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 236, 133, -1));
         getContentPane().add(jHoraInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 201, 133, -1));
 
@@ -175,8 +183,8 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableConsultas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 595, 138));
-        getContentPane().add(jIdConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(981, 43, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 680, 138));
+        getContentPane().add(jIdConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, -1, -1));
 
         jTableConsultasRetorno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,13 +204,15 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableConsultasRetorno);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 595, 138));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 430, 138));
 
         jLabel8.setText("Solicitações de retorno de consulta");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 240, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, -1, -1));
 
         jLabel9.setText("Consultas Cadastradas");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 40, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+        getContentPane().add(jNomeDentista, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 80, -1));
+        getContentPane().add(jNomePaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -242,7 +252,10 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         //jTelefone.setEnabled(false);
         //bCadastrar.setEnabled(true);
         //preencherTabela("SELECT NOME, CPF, TELEFONE_FIXO, EMAIL FROM PACIENTES ORDER BY NOME");
-        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
+        preencherTabela("SELECT C.ID, C.DENTISTA, D.NOME, C.PACIENTE, P.NOME,C.DATA_CONSULTA, C.HORA_INICIO, C.HORA_FIM FROM CONSULTAS C "
+                + "INNER JOIN DENTISTAS D ON C.DENTISTA = D.ID "
+                + "INNER JOIN PACIENTES P ON C.PACIENTE = P.ID "
+                + "ORDER BY DENTISTA");
         
     }//GEN-LAST:event_bSalvarMouseClicked
 
@@ -256,7 +269,10 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         consulta.setHoraInicio(jHoraInicio.getText());
         consulta.setHoraFim(jHoraFim.getText());
         consultaController.editarConsulta(consulta);
-        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
+        preencherTabela("SELECT C.ID, C.DENTISTA, D.NOME, C.PACIENTE, P.NOME,C.DATA_CONSULTA, C.HORA_INICIO, C.HORA_FIM FROM CONSULTAS C "
+                + "INNER JOIN DENTISTAS D ON C.DENTISTA = D.ID "
+                + "INNER JOIN PACIENTES P ON C.PACIENTE = P.ID "
+                + "ORDER BY DENTISTA");
     }//GEN-LAST:event_bEditarMouseClicked
 
     private void jTableConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultasMouseClicked
@@ -287,7 +303,10 @@ public class CadastrarConsulta extends javax.swing.JFrame {
     private void bExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bExcluirMouseClicked
         consulta.setId(Integer.parseInt(jIdConsulta.getText()));
         consultaController.excluiConsulta(consulta);
-        preencherTabela("SELECT ID, DENTISTA, PACIENTE, DATA_CONSULTA, HORA_INICIO, HORA_FIM FROM CONSULTAS ORDER BY DENTISTA");
+        preencherTabela("SELECT C.ID, C.DENTISTA, D.NOME, C.PACIENTE, P.NOME,C.DATA_CONSULTA, C.HORA_INICIO, C.HORA_FIM FROM CONSULTAS C "
+                + "INNER JOIN DENTISTAS D ON C.DENTISTA = D.ID "
+                + "INNER JOIN PACIENTES P ON C.PACIENTE = P.ID "
+                + "ORDER BY DENTISTA");
     }//GEN-LAST:event_bExcluirMouseClicked
 
     private void jTableConsultasRetornoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultasRetornoMouseClicked
@@ -357,17 +376,19 @@ public class CadastrarConsulta extends javax.swing.JFrame {
     
     public void preencherTabela(String sql){
         ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"ID","Dentista", "Paciente", "Data da Consulta", "Hora inicial", "Hora final"};
+        String[] colunas = new String[]{"ID","ID D", "Nome", "ID P", "Nome", "Data da Consulta", "Hora inicial", "Hora final"};
         conexao.conecta();
         conexao.executaSql(sql);
         
         try{
             conexao.rs.first();
         do{
-            dados.add(new Object[]{conexao.rs.getInt("id") ,conexao.rs.getInt("dentista"), conexao.rs.getInt("paciente"),
-                conexao.rs.getString("data_consulta"),
-                conexao.rs.getString("hora_inicio"),
-                conexao.rs.getString("hora_fim")});
+            dados.add(new Object[]{conexao.rs.getInt("c.id") ,conexao.rs.getInt("c.dentista"), conexao.rs.getString("d.nome")
+                    ,conexao.rs.getInt("c.paciente"),
+                    conexao.rs.getString("p.nome"),
+                conexao.rs.getString("c.data_consulta"),
+                conexao.rs.getString("c.hora_inicio"),
+                conexao.rs.getString("c.hora_fim")});
         }while(conexao.rs.next());
         }catch(SQLException ex){
             //JOptionPane.showMessageDialog(rootPane,"erro ao preencher arraLyst: "+ ex);
@@ -376,16 +397,20 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         jTableConsultas.setModel(modelo);
         jTableConsultas.getColumnModel().getColumn(0).setPreferredWidth(30);
         jTableConsultas.getColumnModel().getColumn(0).setResizable(false);
-        jTableConsultas.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(1).setPreferredWidth(50);
         jTableConsultas.getColumnModel().getColumn(1).setResizable(false);
         jTableConsultas.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTableConsultas.getColumnModel().getColumn(2).setResizable(false);
-        jTableConsultas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(3).setPreferredWidth(50);
         jTableConsultas.getColumnModel().getColumn(3).setResizable(false);
         jTableConsultas.getColumnModel().getColumn(4).setPreferredWidth(100);
         jTableConsultas.getColumnModel().getColumn(4).setResizable(false);
-        jTableConsultas.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTableConsultas.getColumnModel().getColumn(5).setPreferredWidth(120);
         jTableConsultas.getColumnModel().getColumn(5).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTableConsultas.getColumnModel().getColumn(6).setResizable(false);
+        jTableConsultas.getColumnModel().getColumn(7).setPreferredWidth(109);
+        jTableConsultas.getColumnModel().getColumn(7).setResizable(false);
         jTableConsultas.getTableHeader().setReorderingAllowed(false);
         jTableConsultas.setAutoResizeMode(jTableConsultas.AUTO_RESIZE_OFF);
         jTableConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -394,17 +419,17 @@ public class CadastrarConsulta extends javax.swing.JFrame {
     
     public void preencherTabelaRetorno(String sql){
         ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"ID","Dentista", "Paciente", "Data da Consulta", "Hora inicial", "Hora final"};
+        String[] colunas = new String[]{"ID","ID D", "Nome", "ID P", "Nome"};
         conexao.conecta();
         conexao.executaSql(sql);
         
         try{
             conexao.rs.first();
         do{
-            dados.add(new Object[]{conexao.rs.getInt("id") ,conexao.rs.getInt("dentista"), conexao.rs.getInt("paciente"),
-                conexao.rs.getString("data_consulta"),
-                conexao.rs.getString("hora_inicio"),
-                conexao.rs.getString("hora_fim")});
+            dados.add(new Object[]{conexao.rs.getInt("c.id") ,conexao.rs.getInt("c.dentista"), 
+                conexao.rs.getString("d.nome"),
+                conexao.rs.getInt("c.paciente"),
+                conexao.rs.getString("p.nome")});
         }while(conexao.rs.next());
         }catch(SQLException ex){
             //JOptionPane.showMessageDialog(rootPane,"erro ao preencher arraLyst: "+ ex);
@@ -413,16 +438,15 @@ public class CadastrarConsulta extends javax.swing.JFrame {
         jTableConsultasRetorno.setModel(modelo);
         jTableConsultasRetorno.getColumnModel().getColumn(0).setPreferredWidth(30);
         jTableConsultasRetorno.getColumnModel().getColumn(0).setResizable(false);
-        jTableConsultasRetorno.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTableConsultasRetorno.getColumnModel().getColumn(1).setPreferredWidth(35);
         jTableConsultasRetorno.getColumnModel().getColumn(1).setResizable(false);
-        jTableConsultasRetorno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableConsultasRetorno.getColumnModel().getColumn(2).setPreferredWidth(160);
         jTableConsultasRetorno.getColumnModel().getColumn(2).setResizable(false);
-        jTableConsultasRetorno.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableConsultasRetorno.getColumnModel().getColumn(3).setPreferredWidth(39);
         jTableConsultasRetorno.getColumnModel().getColumn(3).setResizable(false);
-        jTableConsultasRetorno.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTableConsultasRetorno.getColumnModel().getColumn(4).setPreferredWidth(160);
         jTableConsultasRetorno.getColumnModel().getColumn(4).setResizable(false);
-        jTableConsultasRetorno.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTableConsultasRetorno.getColumnModel().getColumn(5).setResizable(false);
+        
         jTableConsultasRetorno.getTableHeader().setReorderingAllowed(false);
         jTableConsultasRetorno.setAutoResizeMode(jTableConsultas.AUTO_RESIZE_OFF);
         jTableConsultasRetorno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -450,6 +474,8 @@ public class CadastrarConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jNomeDentista;
+    private javax.swing.JTextField jNomePaciente;
     private javax.swing.JTextField jPaciente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
